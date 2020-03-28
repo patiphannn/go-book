@@ -39,14 +39,8 @@ func main() {
 	// Routes
 	e.GET("/", hello)
 
-	bookGroup := e.Group("/book")
-	{
-		bookGroup.POST("", book.Create)
-		bookGroup.GET("", book.Gets)
-		bookGroup.GET("/:id", book.Get)
-		bookGroup.PUT("/:id", book.Update)
-		bookGroup.DELETE("/:id", book.Delete)
-	}
+	// Book
+	e = book.Router(e)
 
 	// Start server
 	e.Logger.Fatal(e.Start(":3000"))
