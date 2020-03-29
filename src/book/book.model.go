@@ -29,7 +29,7 @@ var bookNotFound = bson.M{"message": "book not found"}
 
 // Request is Request struct
 type Request struct {
-	Name   string `json:"name" form:"name" query:"name" validate:"required"`
-	Author string `json:"author" form:"author" query:"author" validate:"required"`
-	Pages  int    `json:"pages" form:"pages" query:"pages" validate:"required,gte=10"`
+	Name   string `json:"name" form:"name" validate:"required"`
+	Author string `json:"author" form:"author" validate:"required"`
+	Pages  int    `json:"pages" form:"pages" validate:"required,gte=10"`
 }

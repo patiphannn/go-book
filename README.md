@@ -7,3 +7,7 @@
 ```
   go run main.go
 ```
+## Run test
+```
+  go test ./ ./test -v -cover
+```
