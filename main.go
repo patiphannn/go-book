@@ -2,6 +2,7 @@ package main
 
 import (
 	"net/http"
+	"os"
 
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
@@ -42,8 +43,13 @@ func main() {
 	// Book
 	e = book.Router(e)
 
+	port := os.Getenv("PORT")
+	if port == "" {
+		port = "1323"
+	}
+
 	// Start server
-	e.Logger.Fatal(e.Start(":3000"))
+	e.Logger.Fatal(e.Start(":"+port))
 }
 
 // Handler

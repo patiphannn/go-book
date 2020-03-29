@@ -101,8 +101,6 @@ func Update(c echo.Context) (err error) {
 
 // Delete handler delete book.
 func Delete(c echo.Context) error {
-	fmt.Println("id: ", c.Param("id"))
-
 	book := &Book{}
 	coll := mgm.Coll(book)
 	err := coll.FindByID(c.Param("id"), book)

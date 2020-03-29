@@ -1,0 +1,24 @@
+version: '3'
+
+services:
+  app:
+    container_name: go-book-app
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "1323:1323"
+    restart: unless-stopped
+    depends_on:
+      - db
+    environment:
+      PORT: 1323
+      MONGO_HOST: mongodb://db:27017
+      MONGO_DB_NAME: go-book
+
+  db:
+    container_name: go-book-db
+    image: mongo:latest
+    restart: unless-stopped
+    ports:
+      - "27019:27017"
