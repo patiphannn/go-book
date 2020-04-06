@@ -5,9 +5,10 @@ go 1.14
 require (
 	github.com/Kamva/mgm v1.2.3
 	github.com/Kamva/mgm/v2 v2.0.0
-	github.com/dgrijalva/jwt-go v3.2.0+incompatible // indirect
+	github.com/dgrijalva/jwt-go v3.2.0+incompatible
 	github.com/go-playground/validator/v10 v10.2.0
 	github.com/klauspost/compress v1.10.3 // indirect
+	github.com/labstack/echo v3.3.10+incompatible
 	github.com/labstack/echo/v4 v4.1.13
 	github.com/pkg/errors v0.9.1 // indirect
 	github.com/stretchr/testify v1.5.1

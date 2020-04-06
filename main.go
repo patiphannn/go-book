@@ -4,12 +4,13 @@ import (
 	"net/http"
 	"os"
 
+	"github.com/go-playground/validator/v10"
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
-	"github.com/go-playground/validator/v10"
-	
-	book "github.com/polnoy/go-book/src/book"
+
+	"github.com/polnoy/go-book/src/book"
 	db "github.com/polnoy/go-book/src/common"
+	"github.com/polnoy/go-book/src/user"
 )
 
 func init() {
@@ -40,8 +41,34 @@ func main() {
 	// Routes
 	e.GET("/", hello)
 
+	// Auth
+	authGroup := e.Group("/auth")
+	{
+		authGroup.POST("/login", user.Login)
+	}
+
+	// User
+	userGroup := e.Group("/user")
+	userGroup.Use(middleware.JWT([]byte("secret")))
+	{
+		userGroup.GET("/profile", user.Profile)
+		userGroup.GET("", user.Gets)
+		userGroup.GET("/:id", user.Get)
+		userGroup.POST("", user.Create)
+		userGroup.PUT("/:id", user.Update)
+		userGroup.DELETE("/:id", user.Delete)
+	}
+
 	// Book
-	e = book.Router(e)
+	bookGroup := e.Group("/book")
+	bookGroup.Use(middleware.JWT([]byte("secret")))
+	{
+		bookGroup.GET("", book.Gets)
+		bookGroup.GET("/:id", book.Get)
+		bookGroup.POST("", book.Create)
+		bookGroup.PUT("/:id", book.Update)
+		bookGroup.DELETE("/:id", book.Delete)
+	}
 
 	port := os.Getenv("PORT")
 	if port == "" {
@@ -49,7 +76,7 @@ func main() {
 	}
 
 	// Start server
-	e.Logger.Fatal(e.Start(":"+port))
+	e.Logger.Fatal(e.Start(":" + port))
 }
 
 // Handler

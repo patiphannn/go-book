@@ -1,7 +1,6 @@
 package book
 
 import (
-	"fmt"
 	"net/http"
 
 	"github.com/Kamva/mgm/operator"
@@ -43,8 +42,6 @@ func Create(c echo.Context) (err error) {
 	if _ = c.Bind(book); err != nil {
 		return c.JSON(http.StatusInternalServerError, internalError)
 	}
-
-	fmt.Println("book: ", book)
 
 	// Validate our data:
 	if err = c.Validate(book); err != nil {
